@@ -1,13 +1,16 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
 import MainLogo from '../../assets/images/mainLogo.svg';
 import {Typography} from '../../constants/typography';
 import {colors} from '../../constants/colors';
 import {normalize} from '../../constants/metrics';
-import {CommonStyles} from '../../constants/common.styles';
 import {MainInput} from '../../components/MainInput';
-
-const Register = () => {
+import {MainButton} from '../../components/MainButton';
+import {SvgImage} from '../../components/SvgImage';
+import {TextLink} from '../../components/TextLink';
+import {RoutesEnum} from '../../router/router';
+const Register: React.FC = ({navigation}) => {
+  const [confirm, reject] = useState<boolean>(false);
   return (
     <View style={styles.root}>
       <MainLogo style={styles.mainLogo} />
@@ -15,22 +18,69 @@ const Register = () => {
         <View style={styles.header}>
           <Text style={styles.title}>Getting Started.!</Text>
           <Text style={styles.text}>
-            Create an Account to Continue your allCourses
+            Create an Account to Continue your all Courses
           </Text>
           <View style={styles.inputs}>
             <MainInput
               type="email-address"
               placeholder="Email"
               icon={require('../../assets/images/email.svg')}
-              // securitytype={false}
             />
             <MainInput
               type="visible-password"
               placeholder="Password"
               icon={require('../../assets/images/Lock.svg')}
-              // securitytype={true}
+            />
+            <View style={styles.termsContainer}>
+              <Pressable
+                onPress={() => reject(!confirm)}
+                hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
+                <SvgImage
+                  source={
+                    confirm
+                      ? require('../../assets/images/termConfirm.svg')
+                      : require('../../assets/images/termReject.svg')
+                  }
+                />
+              </Pressable>
+              <Pressable>
+                <Text style={styles.terms}> Agree to Terms & Conditions</Text>
+              </Pressable>
+            </View>
+          </View>
+          <MainButton
+            style={styles.signInButton}
+            costumwidth={350}
+            icon={require('../../assets/images/arrow_right.svg')}
+            title="Sign up"
+            onPress={() => {}}
+          />
+          <Text style={styles.orText}>Or Continue With</Text>
+          <View style={styles.socials}>
+            <SvgImage
+              source={require('../../assets/images/google.svg')}
+              width={68}
+              height={68}
+            />
+            <SvgImage
+              source={require('../../assets/images/apple.svg')}
+              width={68}
+              height={68}
+              style={{marginBottom: 26}}
             />
           </View>
+          <TextLink
+            content="Already have an Account? SIGN IN"
+            highlighted={[
+              {
+                text: 'SIGN IN',
+                callback: () => {
+                  navigation.navigate(RoutesEnum.login);
+                },
+              },
+            ]}
+            style={styles.linkedText}
+          />
         </View>
       </View>
     </View>
@@ -47,6 +97,13 @@ const styles = StyleSheet.create({
   mainLogo: {
     alignSelf: 'center',
     marginTop: 100,
+  },
+  orText: {
+    ...Typography.smallMulishExtraBold,
+    color: colors.black.main,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginVertical: normalize('vertical', 25),
   },
   title: {
     ...Typography.largeJostSemiBold2,
@@ -65,5 +122,31 @@ const styles = StyleSheet.create({
   inputs: {
     marginTop: 50,
     gap: 20,
+  },
+  signInButton: {
+    marginVertical: normalize('vertical', 39),
+    marginHorizontal: normalize('horizontal', 39),
+    paddingLeft: '40%',
+    paddingRight: '2%',
+    ...Typography.mediumJostSemibold,
+  },
+  socials: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    alignSelf: 'center',
+  },
+  linkedText: {
+    marginTop: 60,
+    alignSelf: 'center',
+  },
+  terms: {
+    ...Typography.smallMulishBold14,
+    color: colors.black.main,
+  },
+  termsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
   },
 });

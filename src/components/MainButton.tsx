@@ -1,4 +1,11 @@
-import {Pressable, StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
+import {
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+} from 'react-native';
 import React from 'react';
 import {colors} from '../constants/colors';
 import {normalize} from '../constants/metrics';
@@ -11,7 +18,7 @@ interface IMainButton {
   onPress?: () => void;
   icon?: any;
   costumwidth: 350 | 200 | 60;
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
 }
 export const MainButton: React.FC<IMainButton> = ({
   title,
@@ -69,5 +76,6 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     ...Typography.mediumJostSemibold,
+    
   },
 });

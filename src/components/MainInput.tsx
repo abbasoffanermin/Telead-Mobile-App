@@ -31,7 +31,7 @@ export const MainInput: React.FC<IMainInput> = ({
           placeholder={placeholder}
           style={styles.input}
           placeholderTextColor={colors.black.lighter}
-          keyboardType={type}
+          keyboardType={type === 'visible-password' ? 'default' : type}
           secureTextEntry={type === 'visible-password' ? hide : false}
         />
       </View>
@@ -39,8 +39,8 @@ export const MainInput: React.FC<IMainInput> = ({
         <SvgImage
           source={
             hide
-              ? require('../assets/images/show.svg')
-              : require('../assets/images/hide.svg')
+              ? require('../assets/images/hide.svg')
+              : require('../assets/images/show.svg')
           }
           color={colors.black.main}
           width={20}
@@ -72,5 +72,8 @@ const styles = StyleSheet.create({
   input: {
     ...Typography.smallMulishBold14,
     color: colors.black.main,
+    width: normalize('width', 270),
+    height: '100%',
+    
   },
 });
