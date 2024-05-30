@@ -9,4 +9,6 @@ export enum RoutesEnum {
   letsyouin = 'letsyouin',
   test = 'test',
   home = 'home',
+  fillprofil = 'fillprofil',
+  modalScreen = 'modalScreen',
 }

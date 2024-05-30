@@ -19,6 +19,15 @@ import Register from './src/screens/auth/Register';
 import Login from './src/screens/auth/Login';
 
 const Stack = createNativeStackNavigator();
+console.warn = (message: string) => {
+  if (
+    message.includes(
+      'Non-serializable values were found in the navigation state',
+    )
+  ) {
+    return;
+  }
+};
 function App(): React.JSX.Element {
   useEffect(() => {
     const init = async () => {
@@ -32,7 +41,7 @@ function App(): React.JSX.Element {
   }, []);
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
+      <StatusBar barStyle="dark-content" translucent backgroundColor="white" />
 
       <Router />
     </SafeAreaProvider>

@@ -10,7 +10,11 @@ import {CommonStyles} from '../../constants/common.styles';
 import {MainButton} from '../../components/MainButton';
 import {TextLink} from '../../components/TextLink';
 import {RoutesEnum} from '../../router/router';
-export const LetsYouIn = ({navigation}) => {
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NavigationParamList} from '../../types/navigation.types';
+export const LetsYouIn: React.FC<
+  NativeStackScreenProps<NavigationParamList, RoutesEnum.letsyouin>
+> = ({navigation}) => {
   return (
     <ScrollView style={styles.container}>
       <View>

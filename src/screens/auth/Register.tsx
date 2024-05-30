@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import MainLogo from '../../assets/images/mainLogo.svg';
 import {Typography} from '../../constants/typography';
@@ -9,10 +9,40 @@ import {MainButton} from '../../components/MainButton';
 import {SvgImage} from '../../components/SvgImage';
 import {TextLink} from '../../components/TextLink';
 import {RoutesEnum} from '../../router/router';
-const Register: React.FC = ({navigation}) => {
+import {Controller, useForm} from 'react-hook-form';
+import {InputControlled} from '../../components/InputControlled';
+import {Regexs} from '../../constants/regexs';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NavigationParamList} from '../../types/navigation.types';
+export interface IRegisterForm {
+  email: string;
+  password: string;
+  verificationType?: 'register' | 'login';
+}
+const Register: React.FC<
+  NativeStackScreenProps<NavigationParamList, RoutesEnum.register>
+> = ({navigation}) => {
   const [confirm, reject] = useState<boolean>(false);
+  const {
+    control,
+    handleSubmit,
+    formState: {errors, isValid},
+  } = useForm<IRegisterForm>({
+    defaultValues: {
+      email: __DEV__ ? 'narmin.abbasova@gmail.com' : '',
+      password: __DEV__ ? 'Narmin123!' : '',
+    },
+  });
+  const onSubmit = ({data}: any) => {
+    navigation.navigate(RoutesEnum.verification, {
+      ...data,
+      verificationType: 'register',
+    
+    });
+  };
+
   return (
-    <View style={styles.root}>
+    <ScrollView style={styles.root}>
       <MainLogo style={styles.mainLogo} />
       <View style={styles.container}>
         <View style={styles.header}>
@@ -21,16 +51,78 @@ const Register: React.FC = ({navigation}) => {
             Create an Account to Continue your all Courses
           </Text>
           <View style={styles.inputs}>
-            <MainInput
-              type="email-address"
+            <Controller
+              control={control}
+              rules={{
+                required: {
+                  message: 'Email is required',
+                  value: true,
+                },
+                pattern: {
+                  value: Regexs.email,
+                  message: 'Email is not valid',
+                },
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <MainInput
+                  type="email-address"
+                  placeholder="Email"
+                  icon={require('../../assets/images/email.svg')}
+                  setValue={onChange}
+                  errorMessage={errors.email?.message}
+                  onBlur={onBlur}
+                  value={value}
+                />
+              )}
+              name="email"
+            />
+            {/* <InputControlled
+              control={control}
+              name="email"
+              disabledControl={false}
+              rules={{
+                required: true,
+              }}
+              errorMessage={errors.email ? 'Email is required' : ''}
               placeholder="Email"
               icon={require('../../assets/images/email.svg')}
+              type="email-address"
+              // setValue={onChange}
+              // onBlur={onBlur}
+              // value={value}
+            /> */}
+
+            <Controller
+              control={control}
+              rules={{
+                required: {
+                  message: 'Password is required',
+                  value: true,
+                },
+                pattern: {
+                  value: Regexs.password,
+                  message:
+                    'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character',
+                },
+                minLength: {
+                  value: 8,
+                  message: 'Password must be at least 8 characters',
+                },
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <MainInput
+                  type="visible-password"
+                  placeholder="Password"
+                  icon={require('../../assets/images/Lock.svg')}
+                  errorMessage={errors.password?.message}
+                  setValue={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                />
+              )}
+              name="password"
             />
-            <MainInput
-              type="visible-password"
-              placeholder="Password"
-              icon={require('../../assets/images/Lock.svg')}
-            />
+
             <View style={styles.termsContainer}>
               <Pressable
                 onPress={() => reject(!confirm)}
@@ -53,7 +145,8 @@ const Register: React.FC = ({navigation}) => {
             costumwidth={350}
             icon={require('../../assets/images/arrow_right.svg')}
             title="Sign up"
-            onPress={() => {}}
+            disabled={!isValid}
+            onPress={handleSubmit(onSubmit)}
           />
           <Text style={styles.orText}>Or Continue With</Text>
           <View style={styles.socials}>
@@ -83,7 +176,7 @@ const Register: React.FC = ({navigation}) => {
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

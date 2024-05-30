@@ -19,12 +19,14 @@ interface IMainButton {
   icon?: any;
   costumwidth: 350 | 200 | 60;
   style?: StyleProp<ViewStyle>;
+  disabled?: boolean;
 }
 export const MainButton: React.FC<IMainButton> = ({
   title,
   onPress,
   icon,
   costumwidth,
+  disabled,
   style,
 }) => {
   return (
@@ -33,8 +35,8 @@ export const MainButton: React.FC<IMainButton> = ({
       style={[
         styles.button,
         style,
-        {width: normalize('width', costumwidth)},
-        costumwidth !== 60 ? [CommonStyles.justifyBetweenRow, {gap: 45}] : null,
+        costumwidth !== 60 ? [CommonStyles.justifyBetweenRow, {gap: 20}] : null,
+        disabled ? {opacity: 0.6} : null,
       ]}>
       {title ? <Text style={styles.title}>{title}</Text> : null}
       {icon ? (
@@ -54,6 +56,7 @@ export const MainButton: React.FC<IMainButton> = ({
 const styles = StyleSheet.create({
   button: {
     backgroundColor: colors.primary.main,
+    padding: 50,
     paddingHorizontal: 30,
     paddingVertical: 17,
     borderRadius: 60,
@@ -61,8 +64,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
     alignSelf: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    
     height: 60,
+    
   },
   arrow: {
     width: normalize('width', 45),
@@ -70,6 +75,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
+    padding: 25,
+    
     backgroundColor: 'white',
     borderRadius: 60,
   },
