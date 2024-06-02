@@ -13,7 +13,8 @@ import {Verification} from '../screens/auth/Verification';
 import Test from '../screens/auth/Test';
 import {ModalScreen} from '../screens/ModalScreen';
 import {defaultOptions, modalScreenOptions} from '../types/navigation.config';
-import {PaymentMethods} from '../screens/auth/PaymentMethods';
+import {PaymentMethods} from '../screens/payments/PaymentMethods';
+import { PaymentScreensTab } from '../screens/payments';
 
 const Stack = createNativeStackNavigator<NavigationParamList>();
 export const AuthRouter = () => {
@@ -35,8 +36,8 @@ export const AuthRouter = () => {
       <Stack.Screen name={RoutesEnum.verification} component={Verification} />
       <Stack.Screen name={RoutesEnum.fillprofil} component={FillProfil} />
       <Stack.Screen
-        name={RoutesEnum.paymentMethod}
-        component={PaymentMethods}
+        name={RoutesEnum.paymentScreensTab}
+        component={PaymentScreensTab}
       />
     </Stack.Navigator>
   );

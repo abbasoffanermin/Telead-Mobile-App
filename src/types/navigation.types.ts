@@ -1,6 +1,6 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import { RoutesEnum } from '../router/Router';
-import { IModalComp } from '../components/ModalComp';
+import {RoutesEnum} from '../router/Router';
+import {IModalComp} from '../components/ModalComp';
 // import {IModal} from 'components/Modal';
 
 export type AppNavigation = NativeStackNavigationProp<NavigationParamList>;
@@ -21,11 +21,9 @@ export type NavigationParamList = {
     verificationType: 'login' | 'register';
   };
   [RoutesEnum.paymentMethod]: undefined;
-//   [Routes.newCard]: undefined;
-//   [Routes.cards]: undefined;
-//   [Routes.paymentScreensTab]: undefined;
-//   [Routes.modalScreen]: IModal;
+  [RoutesEnum.card]: undefined;
   [RoutesEnum.test]: undefined;
+  [RoutesEnum.paymentScreensTab]: undefined;
   [RoutesEnum.letsyouin]: undefined;
   [RoutesEnum.fillprofil]: undefined;
 };

@@ -59,7 +59,7 @@ export const Verification: React.FC<
         //     defaultOpen: true,
         //   })
         // }
-        onPress={() => navigation.navigate(RoutesEnum.paymentMethod)}
+        onPress={() => navigation.navigate(RoutesEnum.paymentScreensTab)}
       />
       {/* <ModalComp
         closeable={true}

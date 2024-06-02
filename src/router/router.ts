@@ -6,9 +6,11 @@ export enum RoutesEnum {
   register = 'register',
   verification = 'verification',
   paymentMethod = 'paymentMethod',
+  paymentScreensTab = 'paymentScreensTab',
   letsyouin = 'letsyouin',
   test = 'test',
   home = 'home',
+  card = 'card',
   fillprofil = 'fillprofil',
   modalScreen = 'modalScreen',
 }
