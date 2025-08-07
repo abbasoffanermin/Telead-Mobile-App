@@ -19,6 +19,7 @@ export type NavigationParamList = {
     email?: string;
     password?: string;
     verificationType: 'login' | 'register';
+    setIsAuth: (value: boolean) => void;
   };
   [RoutesEnum.paymentMethod]: undefined;
   [RoutesEnum.card]: undefined;

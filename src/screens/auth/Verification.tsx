@@ -12,13 +12,21 @@ import {Typography} from '../../constants/typography';
 import {MainButton} from '../../components/MainButton';
 import {ModalScreen} from '../ModalScreen';
 import {TextLink} from '../../components/TextLink';
-
+import {useAuth} from '../../contexts/AuthContext';
 export const Verification: React.FC<
   NativeStackScreenProps<NavigationParamList, RoutesEnum.verification>
 > = ({navigation, route}) => {
   const [code, setCode] = React.useState<string>('');
   const modalRef = useRef<IModalRefCallback>(null);
   console.log(route.params);
+  const { setIsAuth } = useAuth();
+  const handleVerification = () => {
+    // Təsdiq uğurlu olduqda:
+        setIsAuth(true);
+        console.log('Təsdiq uğurlu oldu');
+    // isAuth dəyərini true edirik və MainRouter-ə keçir
+    
+  };
   return (
     <View style={styles.container}>
       <Navbar
@@ -59,7 +67,7 @@ export const Verification: React.FC<
         //     defaultOpen: true,
         //   })
         // }
-        onPress={() => navigation.navigate(RoutesEnum.paymentScreensTab)}
+        onPress={handleVerification}
       />
       {/* <ModalComp
         closeable={true}

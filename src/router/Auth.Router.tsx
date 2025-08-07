@@ -10,34 +10,64 @@ import {LetsYouIn} from '../screens/auth/LetsYouIn';
 import {FillProfil} from '../screens/auth/FillProfil';
 import {NavigationParamList} from '../types/navigation.types';
 import {Verification} from '../screens/auth/Verification';
-import Test from '../screens/auth/Test';
+import Test from '../screens/main/Test';
 import {ModalScreen} from '../screens/ModalScreen';
 import {defaultOptions, modalScreenOptions} from '../types/navigation.config';
 import {PaymentMethods} from '../screens/payments/PaymentMethods';
-import { PaymentScreensTab } from '../screens/payments';
+import {PaymentScreensTab} from '../screens/payments';
 
 const Stack = createNativeStackNavigator<NavigationParamList>();
-export const AuthRouter = () => {
+export const AuthRouter = ({setIsAuth}) => {
   return (
     <Stack.Navigator
       screenOptions={defaultOptions}
       // initialRouteName={RoutesEnum.verification}
     >
-      <Stack.Screen name={RoutesEnum.welcome} component={Welcome} />
-      <Stack.Screen name={RoutesEnum.letsyouin} component={LetsYouIn} />
-      <Stack.Screen name={RoutesEnum.login} component={Login} />
-      <Stack.Screen name={RoutesEnum.test} component={Test} />
+      <Stack.Screen
+        name={RoutesEnum.welcome}
+        component={Welcome}
+        setIsAuth={setIsAuth}
+      />
+      <Stack.Screen
+        name={RoutesEnum.letsyouin}
+        component={LetsYouIn}
+        setIsAuth={setIsAuth}
+      />
+      <Stack.Screen
+        name={RoutesEnum.login}
+        component={Login}
+        setIsAuth={setIsAuth}
+      />
+      <Stack.Screen
+        name={RoutesEnum.test}
+        component={Test}
+        setIsAuth={setIsAuth}
+      />
       <Stack.Screen
         name={RoutesEnum.modalScreen}
         component={ModalScreen}
         options={modalScreenOptions}
+        setIsAuth={setIsAuth}
       />
-      <Stack.Screen name={RoutesEnum.register} component={Register} />
-      <Stack.Screen name={RoutesEnum.verification} component={Verification} />
-      <Stack.Screen name={RoutesEnum.fillprofil} component={FillProfil} />
+      <Stack.Screen
+        name={RoutesEnum.register}
+        component={Register}
+        setIsAuth={setIsAuth}
+      />
+      <Stack.Screen
+        name={RoutesEnum.verification}
+        component={Verification}
+        setIsAuth={setIsAuth}
+      />
+      <Stack.Screen
+        name={RoutesEnum.fillprofil}
+        component={FillProfil}
+        setIsAuth={setIsAuth}
+      />
       <Stack.Screen
         name={RoutesEnum.paymentScreensTab}
         component={PaymentScreensTab}
+        setIsAuth={setIsAuth}
       />
     </Stack.Navigator>
   );

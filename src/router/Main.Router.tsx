@@ -4,8 +4,8 @@ import Login from '../screens/auth/Login';
 import Register from '../screens/auth/Register';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationParamList} from '../types/navigation.types';
-import {RoutesEnum} from './Router';
-import Test from '../screens/auth/Test';
+import {RoutesEnum} from './router';
+import Test from '../screens/main/Test';
 const AuthStack = createNativeStackNavigator<NavigationParamList>();
 const MainRouter = () => {
   return (

@@ -17,6 +17,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Register from './src/screens/auth/Register';
 import Login from './src/screens/auth/Login';
+import {AuthProvider} from './src/contexts/AuthContext';
 
 const Stack = createNativeStackNavigator();
 console.warn = (message: string) => {
@@ -42,8 +43,10 @@ function App(): React.JSX.Element {
   return (
     <SafeAreaProvider>
       <StatusBar barStyle="dark-content" translucent backgroundColor="white" />
-
-      <Router />
+<AuthProvider>
+<Router />
+</AuthProvider>
+    
     </SafeAreaProvider>
   );
 }

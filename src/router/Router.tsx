@@ -1,13 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import MainRouter from './Main.Router';
 import {AuthRouter} from './Auth.Router';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Login from '../screens/auth/Login';
-const Stack = createNativeStackNavigator();
-const isAuth = false;
+import {useAuth} from '../contexts/AuthContext';
 
 const Router = () => {
+  const {isAuth} = useAuth();
+
   return (
     <NavigationContainer>
       {isAuth ? <MainRouter /> : <AuthRouter />}

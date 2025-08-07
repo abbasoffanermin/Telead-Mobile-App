@@ -65,9 +65,8 @@ const styles = StyleSheet.create({
     gap: 8,
     alignSelf: 'center',
     justifyContent: 'space-between',
-    
+
     height: 60,
-    
   },
   arrow: {
     width: normalize('width', 45),
@@ -76,13 +75,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     padding: 25,
-    
+
     backgroundColor: 'white',
     borderRadius: 60,
   },
   title: {
     color: 'white',
     ...Typography.mediumJostSemibold,
-    
   },
 });

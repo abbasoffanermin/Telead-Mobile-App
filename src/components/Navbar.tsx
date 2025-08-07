@@ -1,4 +1,11 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+} from 'react-native';
 import React from 'react';
 import {SvgImage} from './SvgImage';
 import {colors} from '../constants/colors';
@@ -14,6 +21,7 @@ interface leftI {
 }
 interface INavbar {
   lefticonAction?: Tleft;
+  navStyle?: StyleProp<ViewStyle>;
   righticonAction?: Tright;
   leftCaption?: string;
   left?: leftI;
@@ -70,9 +78,10 @@ export const Navbar: React.FC<INavbar> = ({
   leftCaption,
   left,
   right,
+  navStyle,
 }) => {
   return (
-    <View style={styles.container}>
+    <View style={StyleSheet.compose(styles.container, navStyle)}>
       <View style={!lefticonAction ? styles.hide : styles.left}>
         {lefticonAction ? renderLeft(lefticonAction, left) : null}
       </View>

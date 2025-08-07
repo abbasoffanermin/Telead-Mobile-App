@@ -50,11 +50,7 @@ export const MainInput: React.FC<IMainInput> = ({
   };
   return (
     <View>
-      <View
-        style={[
-          styles.container,
-          errorMessage ? styles.error : null,
-        ]}>
+      <View style={[styles.container, errorMessage ? styles.error : null]}>
         <View style={styles.cont}>
           {icon ? <SvgImage source={icon} color={colors.black.main} /> : null}
 
@@ -68,7 +64,7 @@ export const MainInput: React.FC<IMainInput> = ({
             onChangeText={setValue}
             // onBlur={onBlur}
             keyboardType={type === 'visible-password' ? 'default' : type}
-            secureTextEntry={type === 'visible-password' ? hide : true}
+            secureTextEntry={type === 'visible-password' ? !hide : false}
           />
         </View>
         {type === 'visible-password' ? (

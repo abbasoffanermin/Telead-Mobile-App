@@ -10,19 +10,23 @@ import {SvgImage} from '../../components/SvgImage';
 import {TextLink} from '../../components/TextLink';
 import {RoutesEnum} from '../../router/router';
 import {Controller, useForm} from 'react-hook-form';
-import {InputControlled} from '../../components/InputControlled';
 import {Regexs} from '../../constants/regexs';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from '../../types/navigation.types';
+import {useUserStore} from '../../store/user/userStore';
+
 export interface IRegisterForm {
   email: string;
   password: string;
   verificationType?: 'register' | 'login';
 }
+
 const Register: React.FC<
   NativeStackScreenProps<NavigationParamList, RoutesEnum.register>
 > = ({navigation}) => {
-  const [confirm, reject] = useState<boolean>(false);
+  const [confirm, setConfirm] = useState<boolean>(false);
+  const {setUser} = useUserStore();
+
   const {
     control,
     handleSubmit,
@@ -33,11 +37,19 @@ const Register: React.FC<
       password: __DEV__ ? 'Narmin123!' : '',
     },
   });
-  const onSubmit = ({data}: any) => {
-    navigation.navigate(RoutesEnum.verification, {
+
+  const onSubmit = (data: IRegisterForm) => {
+    // İstifadəçi məlumatlarını store-a yazırıq
+    setUser({
+      email: data.email,
+      password: data.password,
+      firstName: '',
+      lastName: '',
+    });
+
+    navigation.navigate(RoutesEnum.fillprofil, {
       ...data,
       verificationType: 'register',
-    
     });
   };
 
@@ -46,7 +58,7 @@ const Register: React.FC<
       <MainLogo style={styles.mainLogo} />
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>Getting Started.!</Text>
+          <Text style={styles.title}>Getting Started!</Text>
           <Text style={styles.text}>
             Create an Account to Continue your all Courses
           </Text>
@@ -76,21 +88,6 @@ const Register: React.FC<
               )}
               name="email"
             />
-            {/* <InputControlled
-              control={control}
-              name="email"
-              disabledControl={false}
-              rules={{
-                required: true,
-              }}
-              errorMessage={errors.email ? 'Email is required' : ''}
-              placeholder="Email"
-              icon={require('../../assets/images/email.svg')}
-              type="email-address"
-              // setValue={onChange}
-              // onBlur={onBlur}
-              // value={value}
-            /> */}
 
             <Controller
               control={control}
@@ -125,7 +122,7 @@ const Register: React.FC<
 
             <View style={styles.termsContainer}>
               <Pressable
-                onPress={() => reject(!confirm)}
+                onPress={() => setConfirm(!confirm)}
                 hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
                 <SvgImage
                   source={
@@ -145,7 +142,7 @@ const Register: React.FC<
             costumwidth={350}
             icon={require('../../assets/images/arrow_right.svg')}
             title="Sign up"
-            disabled={!isValid}
+            disabled={!isValid || !confirm}
             onPress={handleSubmit(onSubmit)}
           />
           <Text style={styles.orText}>Or Continue With</Text>
@@ -181,7 +178,6 @@ const Register: React.FC<
 };
 
 export default Register;
-
 const styles = StyleSheet.create({
   root: {
     backgroundColor: '#F5F9FF',
